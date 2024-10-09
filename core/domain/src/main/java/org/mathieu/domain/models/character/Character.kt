@@ -17,12 +17,12 @@ package org.mathieu.domain.models.character
 data class Character(
     val id: Int,
     val name: String,
-    val status: CharacterStatus,
-    val species: String,
-    val type: String,
-    val gender: CharacterGender,
-    val origin: Pair<String, Int>,
-    val location: Pair<String, Int>,
+    val status: CharacterStatus?,
+    val species: String?,
+    val type: String?,
+    val gender: CharacterGender?,
+    val origin: Pair<String, Int>?,
+    val location: Pair<String, Int>?,
     val avatarUrl: String,
     val locationPreviews: List<LocationPreview>?
 )

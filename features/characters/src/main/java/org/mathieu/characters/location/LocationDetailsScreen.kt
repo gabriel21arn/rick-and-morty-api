@@ -41,20 +41,14 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
-import org.mathieu.characters.character.CharacterDetailsState
-import org.mathieu.characters.character.CharacterDetailsViewModel
-import org.mathieu.characters.character.LocationAction
-import org.mathieu.characters.list.CharactersAction
-import org.mathieu.domain.models.character.Character
+import org.mathieu.Location.details.LocationDetailsState
+import org.mathieu.characters.location.
 import org.mathieu.ui.composables.PreviewContent
 
-private typealias UIState = CharacterDetailsState
-private typealias UIAction = CharactersAction
-
-
+private typealias UIState = LocationDetailsState
 
 @Composable
-fun CharacterDetailsScreen(
+fun LocationDetailsScreen(
     navController: NavController,
     id: Int
 ) {
@@ -65,8 +59,7 @@ fun CharacterDetailsScreen(
 
     CharacterDetailsContent(
         state = state,
-        onClickBack = navController::popBackStack,
-        onAction = viewModel::handleAction
+        onClickBack = navController::popBackStack
     )
 
 }
@@ -76,8 +69,7 @@ fun CharacterDetailsScreen(
 @Composable
 private fun CharacterDetailsContent(
     state: UIState = UIState(),
-    onClickBack: () -> Unit = { },
-    onAction: (UIAction) -> Unit = { }
+    onClickBack: () -> Unit = { }
 ) = Scaffold(topBar = {
 
     Row(
@@ -165,31 +157,18 @@ private fun CharacterDetailsContent(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(text = state.name)
-
-                    LocationCard(
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .clickable {
-                                onAction(LocationAction.SelectedLocation(it))
-                            },
-                        character = it
-                    )
+                    
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(text = "Location Name")
+                        Text(text = "Type Name")
+                    }
                 }
             }
         }
     }
 }
-
-@Composable
-private fun LocationCard(
-    modifier: Modifier, character: Character
-) =
-    Row(
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(text = "Location Name")
-        Text(text = "Type Name")
-    }
 
 
 @Preview
