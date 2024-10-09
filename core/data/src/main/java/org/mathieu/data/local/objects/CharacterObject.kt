@@ -65,5 +65,14 @@ internal fun CharacterObject.toModel() = Character(
     gender = tryOrNull { CharacterGender.valueOf(gender) } ?: CharacterGender.Unknown,
     origin = originName to originId,
     location = locationName to locationId,
-    avatarUrl = image
+    avatarUrl = image,
+    locationPreviews = listOf(
+        LocationPreview(
+            id = 1,
+            name = locationName,
+            type = "type",
+            dimension = "dimension"
+            )
+
+    )
 )
