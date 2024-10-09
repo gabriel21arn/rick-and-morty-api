@@ -2,6 +2,8 @@ package org.mathieu.characters.details
 
 import android.app.Application
 import org.koin.core.component.inject
+import org.mathieu.domain.models.character.LocationPreview
+import org.mathieu.domain.models.location.Location
 import org.mathieu.domain.repositories.CharacterRepository
 import org.mathieu.ui.ViewModel
 
@@ -17,7 +19,7 @@ class CharacterDetailsViewModel(application: Application) : org.mathieu.ui.ViewM
         ) {
 
             onSuccess {
-                updateState { copy(avatarUrl = it.avatarUrl, name = it.name, error = null) }
+                updateState { copy(avatarUrl = it.avatarUrl, name = it.name, location = characterRepository., error = null) }
             }
 
             onFailure {
@@ -36,5 +38,12 @@ data class CharacterDetailsState(
     val isLoading: Boolean = true,
     val avatarUrl: String = "",
     val name: String = "",
+    val location: Location = Location(
+        id = 0,
+        name = "Unknow",
+        type = "Unknow",
+        dimension = "Unknow",
+        residents = listOf()
+    ),
     val error: String? = null
 )

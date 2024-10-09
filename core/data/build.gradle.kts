@@ -60,4 +60,6 @@ dependencies {
 
     //Realm
     implementation("io.realm.kotlin:library-base:$realmVersion")
+    implementation("androidx.compose.foundation:foundation-layout:1.4.0")
+    implementation("androidx.compose.ui:ui:1.0.1")
 }
