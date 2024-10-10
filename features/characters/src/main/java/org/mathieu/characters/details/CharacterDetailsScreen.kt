@@ -1,5 +1,8 @@
 package org.mathieu.characters.details
 
+import android.content.Context
+import android.os.VibrationEffect
+import android.os.Vibrator
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
@@ -33,6 +36,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,6 +51,7 @@ import org.mathieu.characters.character.LocationAction
 import org.mathieu.characters.list.CharactersAction
 import org.mathieu.domain.models.character.Character
 import org.mathieu.ui.composables.PreviewContent
+import kotlin.coroutines.jvm.internal.CompletedContinuation.context
 
 private typealias UIState = CharacterDetailsState
 private typealias UIAction = CharactersAction
@@ -166,10 +171,14 @@ private fun CharacterDetailsContent(
 
                     Text(text = state.name)
 
+                    val context = LocalContext.current
+
                     LocationCard(
                         modifier = Modifier
                             .padding(8.dp)
                             .clickable {
+                                triggerVibration(context)
+
                                 onAction(LocationAction.SelectedLocation(it))
                             },
                         character = it
@@ -177,6 +186,15 @@ private fun CharacterDetailsContent(
                 }
             }
         }
+    }
+}
+
+private fun triggerVibration(context: Context) {
+    val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
+    if (vibrator.hasVibrator()) { // Vérifie si l'appareil a un vibreur
+        val vibrationEffect = VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE)
+        vibrator.vibrate(vibrationEffect)
     }
 }
 

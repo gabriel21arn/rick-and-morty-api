@@ -1,6 +1,9 @@
 package org.mathieu.characters.character
 
 import android.app.Application
+import android.content.Context
+import android.os.VibrationEffect
+import android.os.Vibrator
 import org.koin.core.component.inject
 import org.mathieu.characters.list.CharactersAction
 import org.mathieu.domain.models.character.Character
@@ -45,7 +48,7 @@ class CharacterDetailsViewModel(application: Application) : org.mathieu.ui.ViewM
         sendEvent(Destination.CharacterDetails(location.id.toString()))
 
 }
-}
+
 
 
 data class CharacterDetailsState(
